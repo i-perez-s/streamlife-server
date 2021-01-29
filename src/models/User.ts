@@ -8,6 +8,7 @@ const userSchema = new Schema ({
     password: { type: String, required: true }
 })
 
+<<<<<<< HEAD
 userSchema.pre('save',  async function (next)  {
     const hash = await bcrypt.hash(this.password, 10)
 }
@@ -17,6 +18,15 @@ userSchema.methods.comparePassword = async (password: string) => {
     const user = this
     const compare = await bcrypt.compare(user.password, user.password)
     return compare
+=======
+userSchema.methods.hashPassword = async (password: string) => {
+    return await bcrypt.hash(password, 10)
+}
+
+
+userSchema.methods.comparePassword = async (passwordDb: string, passwordUser: string) => {
+    return await bcrypt.compare(passwordUser, passwordDb)
+>>>>>>> 8da1e00c184100c323a5da06b9292648eec042f3
 }
 
 

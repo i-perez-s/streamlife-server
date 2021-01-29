@@ -8,21 +8,31 @@
         "bcrypt": "^5.0.0",
         "body-parser": "^1.19.0",
         "express": "^4.16.3",
+<<<<<<< HEAD
         "jsonwebtoken": "^8.5.1",
         "mongoose-unique-validator": "^2.0.3",
         "node-media-server": "^2.2.4",
         "passport": "^0.4.1",
         "passport-jwt": "^4.0.0",
         "passport-local": "^1.0.0",
+=======
+        "mongoose-unique-validator": "^2.0.3",
+        "node-media-server": "^2.2.4",
+>>>>>>> 8da1e00c184100c323a5da06b9292648eec042f3
         "rimraf": "^3.0.2",
         "ts-node-dev": "^1.0.0-pre.30",
         "typescript": "^3.1.1"
     },
     "devDependencies": {
+<<<<<<< HEAD
         "@types/jsonwebtoken": "^8.5.0",
         "@types/mongoose": "^5.10.3",
         "@types/node": "^14.14.22",
         "@types/passport": "^1.0.5",
+=======
+        "@types/mongoose": "^5.10.3",
+        "@types/node": "^14.14.22",
+>>>>>>> 8da1e00c184100c323a5da06b9292648eec042f3
         "mongoose": "^5.11.13",
         "nodemon": "^2.0.7",
         "ts-mongoose": "0.0.24"
