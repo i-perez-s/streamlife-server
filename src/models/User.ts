@@ -24,7 +24,11 @@ userSchema.methods.hashPassword = async (password: string) => {
 }
 
 
+<<<<<<< HEAD
 userSchema.methods.isValidPassword = async (passwordDb: string, passwordUser: string) => {
+=======
+userSchema.methods.comparePassword = async (passwordDb: string, passwordUser: string) => {
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
     return await bcrypt.compare(passwordUser, passwordDb)
 >>>>>>> 8da1e00c184100c323a5da06b9292648eec042f3
 }

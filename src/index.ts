@@ -1,8 +1,11 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import { json } from 'body-parser'
+<<<<<<< HEAD
 import './auth/auth'
 import { router } from "./routes/index"
+=======
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
 
 <<<<<<< HEAD
 
@@ -31,6 +34,7 @@ app.get('/', function (req, res) {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.use(router)
 
 /* mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
@@ -39,6 +43,8 @@ app.use(router)
 }) */
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
 /* mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
     if (err) throw err
     console.log('>>>> Db conected')
@@ -49,6 +55,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err,
     console.log('>>>> Db conected')
 })
 >>>>>>> 8da1e00c184100c323a5da06b9292648eec042f3
+<<<<<<< HEAD
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
+=======
 >>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
 
 app.listen(port, function () {

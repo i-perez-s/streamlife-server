@@ -1,5 +1,6 @@
 import passport from 'passport'
 <<<<<<< HEAD
+<<<<<<< HEAD
 const localStrategy = require("passport-local").Strategy
 import User from "../models/User"
 
@@ -33,6 +34,8 @@ passport.use('login', new localStrategy({
 
 }))
 =======
+=======
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
 import User from "../models/User"
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -66,5 +69,9 @@ passport.use('login' ,new LocalStrategy({
           })
           .catch(err => done(err));
     }
+<<<<<<< HEAD
+));
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
+=======
 ));
 >>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import express from 'express'
 import passport from "passport"
 import jwt from "jsonwebtoken"
@@ -24,6 +25,8 @@ router.post("login",  async (req, res, next) =>{
     })
 })
 =======
+=======
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
 const express = require('express');
 const authRouter  = express.Router();
 import jwt from 'jsonwebtoken'
@@ -48,5 +51,9 @@ authRouter.post('/login', function (req: any, res: any) {
     })(req, res);
 });
 
+<<<<<<< HEAD
+export default authRouter
+>>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
+=======
 export default authRouter
 >>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
