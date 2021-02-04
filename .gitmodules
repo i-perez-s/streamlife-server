@@ -1,0 +1,3 @@
+[submodule "streamlife-server"]
+	path = streamlife-server
+	url = https://github.com/z3hcnas/streamlife-server
