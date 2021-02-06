@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-import express from 'express'
-import passport from "passport"
-import jwt from "jsonwebtoken"
-
-export const router = express.Router()
-
-router.post('signup', passport.authenticate("signup",{session: false}), async(req, res) => {
-    res.json({
-        message: "Sign up sucessfuly",
-        user: req.user
-    })
-})
-
-router.post("login",  async (req, res, next) =>{
-    passport.authenticate("login", async (err, user, info) => {
-        try {
-            if (err || user) {
-                const error =  new Error("new Error");
-                return next (error)
-            }
-        } catch (err) {
-        }
-    })
-})
-=======
-=======
->>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
->>>>>>> c3e3475a07eca487dad9642e372df412dc84f629
 const express = require('express');
 const authRouter  = express.Router();
 import jwt from 'jsonwebtoken'
@@ -54,13 +22,4 @@ authRouter.post('/login', function (req: any, res: any) {
     })(req, res);
 });
 
-<<<<<<< HEAD
 export default authRouter
-=======
-<<<<<<< HEAD
-export default authRouter
->>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
-=======
-export default authRouter
->>>>>>> 1815d7c48536d3d4b12349d8cea4433dca80552a
->>>>>>> c3e3475a07eca487dad9642e372df412dc84f629
