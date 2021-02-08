@@ -5,7 +5,6 @@ import bodyParser from 'body-parser'
 
 import { port, uriMongo as url } from './config'
 import { app as authRouter } from './routes/index'
-import './auth/auth'
 
 
 // Create a new express application instance

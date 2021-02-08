@@ -9,20 +9,17 @@ authRouter.post("/register", async (req, res) => {
   user.password = req.body.password;
   user.email = req.body.email;
 
-console.log(user)
-user.save((err, userdb) => {
-    if (err) return res.status(500).json({ok: false, err})
-    return res.json({ok: true, userdb})
-})
-
-
+  user
+    .save(user)
+    .then((userdb: User) => res.json({ ok: true, userdb }))
+    .catch((err: any) => res.status(500).json({ ok: false, err }));
 });
 
 authRouter.post("/login", async (req, res) => {
   const password = req.body.password;
   const email = req.body.email;
 
-  const user = await User.findOne({ email: email }).exec()
+  const user = await User.findOne({ email: email }).exec();
   if (!user) return res.json({ ok: false, err: "user doesn't exists" });
 
   if (!user.comparePassword(password)) {

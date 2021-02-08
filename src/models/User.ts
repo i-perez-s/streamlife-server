@@ -5,7 +5,8 @@ import bcrypt from 'bcrypt'
 const UserSchema = new Schema ({
     username: { type: String, required: [true, 'the usuarname is necesary'], unique: true },
     email: { type: String, unique: [true, 'the email is necesary'], required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    isInLive: { type: Boolean, required: false, default: false }
 })
 
 UserSchema.pre('save',  async function (next)  {
