@@ -21,8 +21,8 @@ userRouter.get("/user/:id", verificaToken, async (req, res) => {
   return res.json({ ok: true, user });
 });
 
-userRouter.delete("/user/:id", verificaToken, async (req, res) => {
-  const id = req.params.id;
+userRouter.delete("/user", verificaToken, async (req, res) => {
+  const id = req.user._id;
   User.findByIdAndDelete(id)
     .exec()
     .then((user: User) => {

@@ -8,17 +8,25 @@ followRouter.post(
   "/startFollow/:idFollowed",
   verificaToken,
   async (req, res) => {
+    const followerId = req.user._id.toString();
+    const followedId = req.params.idFollowed;
     const follow = new Follow({
-      follower: req.user._id.toString(),
-      followed: req.params.idFollowed,
+      follower: followerId,
+      followed: followedId,
     });
 
-    const followDb = await follow.save();
-    if (!followDb)
-      return res
-        .status(500)
-        .json({ ok: true, err: "some problems at saving the follow" });
-    return res.json({ ok: true, follow: followDb });
+    const existsFollow = await Follow.findOne({
+      follower: followerId,
+      followed: followedId,
+    });
+    if (existsFollow == null) {
+      follow
+        .save()
+        .then((follow) => res.json({ ok: true, follow }))
+        .catch((err) => res.json({ ok: false, err }));
+    } else {
+      return res.json({ ok: false, err: "you're still following this user'" });
+    }
   }
 );
 
@@ -30,25 +38,28 @@ followRouter.delete(
       followed: req.params.idFollowed,
       follower: req.user._id,
     })
-      .exec()
-      .populate()
+      .populate("followed", "_id username isInLive")
       .then((follow: Follow) => {
-	  if(!follow) return res.status(404).json({ok: false, err:"follow doesn't exists"})
-	  return res.json({ ok: true, followDeleted: follow })
+        if (!follow)
+          return res
+            .status(404)
+            .json({ ok: false, err: "follow doesn't exists" });
+        return res.json({ ok: true, followDeleted: follow });
       })
       .catch((err: any) => res.json({ ok: false, err }));
   }
 );
 
-followRouter.get("/myFollows", verificaToken, async(req, res) => {
-    const myFollows = await Follow.find({follower: req.user._id})
-    return res.json({ok: true, follows: myFollows})
-})
+followRouter.get("/myFollows", verificaToken, async (req, res) => {
+  Follow.find({ follower: req.user._id })
+    .populate("followed", "_id username isInLive")
+    .then((myFollows) => res.json({ ok: true, follows: myFollows }))
+    .catch((err) => res.json({ ok: false, err }));
+});
 
-followRouter.get("/followersOfUser/:id", verificaToken, async(req, res) => {
-    const followers = await Follow.find({followed: req.params.id})
-    return res.json({ok: true, followersOfUser: followers.length})
-})
-
+followRouter.get("/followersOfUser/:id", verificaToken, async (req, res) => {
+  const followers = await Follow.find({ followed: req.params.id });
+  return res.json({ ok: true, followersOfUser: followers.length });
+});
 
 export default followRouter;
