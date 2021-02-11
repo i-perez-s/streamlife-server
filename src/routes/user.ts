@@ -35,13 +35,6 @@ userRouter.delete("/user", verificaToken, async (req, res) => {
     .catch((err: any) => res.status(500).json({ ok: false, err }));
 });
 
-userRouter.put("/imStreaming/:id", verificaToken, async (req, res) => {
 
-    const id = req.user._id.toString()
-    //const id = req.params.id
-    const user = await User.findById(id)
-    const imStreaming = {isInLive: !user.isInLive}
-    return res.json({ok: true, user: await User.findByIdAndUpdate(id, imStreaming, {new:true})})
-})
 
 export default userRouter;
