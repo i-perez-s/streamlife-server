@@ -1,13 +1,14 @@
+const { response, request } = require('express');
 const express = require("express");
 const followRouter = express.Router();
 import User from "../models/User";
 import Follow from "../models/Follow";
-import { verificaToken } from "../middelwares/auth";
+import { authorizedToken } from "../middelwares/auth";
 
 followRouter.post(
   "/startFollow/:idFollowed",
-  verificaToken,
-  async (req, res) => {
+  authorizedToken,
+  async (req = request, res = response) => {
     const followerId = req.user._id.toString();
     const followedId = req.params.idFollowed;
     const follow = new Follow({
@@ -32,8 +33,8 @@ followRouter.post(
 
 followRouter.delete(
   "/stopFollowing/:idFollowed",
-  verificaToken,
-  async (req, res) => {
+  authorizedToken,
+  async (req = request, res = response) => {
     Follow.findOneAndDelete({
       followed: req.params.idFollowed,
       follower: req.user._id,
@@ -50,14 +51,14 @@ followRouter.delete(
   }
 );
 
-followRouter.get("/myFollows", verificaToken, async (req, res) => {
+followRouter.get("/myFollows", authorizedToken, async (req = request, res = response) => {
   Follow.find({ follower: req.user._id })
     .populate("followed", "_id username isInLive")
     .then((myFollows) => res.json({ ok: true, follows: myFollows }))
     .catch((err) => res.json({ ok: false, err }));
 });
 
-followRouter.get("/followersOfUser/:id", verificaToken, async (req, res) => {
+followRouter.get("/followersOfUser/:id", authorizedToken, async (req = request, res = response) => {
   const followers = await Follow.find({ followed: req.params.id });
   return res.json({ ok: true, followersOfUser: followers.length });
 });

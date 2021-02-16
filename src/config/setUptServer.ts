@@ -1,10 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-
 import NodeMediaServer from 'node-media-server'
-
 import dotenv from 'dotenv'
-
 import { app as routes } from '../routes/index'
 
 const setUpServer = () => {
@@ -42,25 +39,7 @@ const setUpServer = () => {
     } catch (error) {
         console.log(error)
     }
-
     return [app, io, nms]
 }
 
-
-
-
-
-
 export default setUpServer
-
-
-
-
-//prepare node media server
-
-
-
-
-
-
-

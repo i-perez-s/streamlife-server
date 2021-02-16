@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
 const streamSchema = new Schema ({
-    title: { type: String, required: [true, 'the title is necesary'] },
+    tittle: { type: String, required: [true, 'the title is necesary'] },
     category: { type: String, required: [true, 'the category is necesary']},
     viewers: { type: Number, required: false },
     isReady: { type: Boolean, required: false, default: false },

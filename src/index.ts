@@ -5,11 +5,13 @@ const [app, io, nms] = setUpServer()
 
 nms.run()
 
-connectDb()
+/* connectDb()
 .then(() => console.log('>>>>>>>>>> Db connected'))
-.catch(err => console.log(err))
+.catch(err => console.log(err)) */
 
 
 app.listen(process.env.EXPRESS_PORT, function () {
   console.log('Express server on port:', process.env.EXPRESS_PORT);
 });
+
+module.exports = { io }
