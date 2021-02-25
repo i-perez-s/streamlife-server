@@ -5,9 +5,7 @@ const [app, io, nms] = setUpServer()
 
 nms.run()
 
-/* connectDb()
-.then(() => console.log('>>>>>>>>>> Db connected'))
-.catch(err => console.log(err)) */
+connectDb()
 
 
 app.listen(process.env.EXPRESS_PORT, function () {
