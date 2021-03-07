@@ -2,10 +2,10 @@ import mongoose from "mongoose"
 
 export const connectDb = async() => {
     try {
-        if (process.env.URI_MONGO === undefined) {
-            process.env.URI_MONGO = ''
+        if (process.env.URI_MONGO_CLOUD === undefined) {
+            process.env.URI_MONGO_CLOUD = ''
         }
-        await mongoose.connect(process.env.URI_MONGO, { useNewUrlParser: true })
+        await mongoose.connect(process.env.URI_MONGO_CLOUD, { useNewUrlParser: true })
         console.log('>>>Db connected')
     } catch (error) {
         console.log(error)
