@@ -3,12 +3,20 @@ import bodyParser from 'body-parser'
 import NodeMediaServer from 'node-media-server'
 import dotenv from 'dotenv'
 import { app as routes } from '../routes/index'
+import fileUpload from 'express-fileupload'
 
 const setUpServer = () => {
     // Create a new express application instance
     const app: express.Application = express();
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
+
+    //file upload
+    app.use( fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+  }));
     //use routes
     app.use(routes);
 
