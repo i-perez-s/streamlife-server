@@ -4,6 +4,7 @@ import NodeMediaServer from 'node-media-server'
 import dotenv from 'dotenv'
 import { app as routes } from '../routes/index'
 import fileUpload from 'express-fileupload'
+import { socketController } from './../socket/controller';
 
 const setUpServer = () => {
     // Create a new express application instance
@@ -39,7 +40,10 @@ const setUpServer = () => {
 
     //prepare the socket server
     const ioServer = require('http').createServer(app);
-    const io = require('socket.io')(ioServer);
+    const io = require('socket.io')(ioServer, {cors: {origins: 'http://localhost:3000'}});
+
+    io.on('connection', socketController)
+
 
     try {
         ioServer.listen(process.env.IO_SERVER_PORT)
@@ -47,7 +51,7 @@ const setUpServer = () => {
     } catch (error) {
         console.log(error)
     }
-    return [app, io, nms]
+    return [app, nms]
 }
 
 export default setUpServer

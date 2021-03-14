@@ -1,7 +1,6 @@
-import { io } from '../index'
-import {Socket} from 'socket.io'
+export const socketController = (socket: any) => {
+    console.log(socket.id, 'se unio')
 
-io.on('connection', (socket = new Socket()) => {
-    console.log(socket.id)
-
-})
+    socket.on('disconnect', () => console.log(socket.id))
+    socket.emit('lol', {nombre: 'asd'})
+}

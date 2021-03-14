@@ -1,7 +1,7 @@
 import { connectDb } from './config/db'
 import setUpServer from './config/setUptServer'
 
-export const [app, io, nms] = setUpServer()
+const [app, nms] = setUpServer()
 
 //stream server
 nms.run()
