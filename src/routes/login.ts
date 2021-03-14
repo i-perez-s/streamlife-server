@@ -9,23 +9,15 @@ authRouter.post("/login", async (req = request, res = response) => {
   const password = req.body.password;
   const email = req.body.email;
 
-  const user = await User.findOne({ email: email }).exec();
+  const user = await User.findOne({ email: email });
   if (!user) return res.json({ ok: false, err: "user doesn't exists" });
 
-  if (!user.comparePassword(password)) {
+  if (!(await user.comparePassword(password))) {
     return res.json({ ok: false, err: "incorrect password" });
   }
 
   const token = jwt.sign({ user }, "top_secret");
   return res.json({ ok: true, user, token });
 });
-
-/* authRouter.post("/checkJwt", async (req = request, res = response) => {
-  if (!checkJwt(req.body.token)){
-    req.status(401).json({
-      socket
-    })
-  }
-}) */
 
 export default authRouter;
