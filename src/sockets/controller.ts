@@ -1,5 +1,5 @@
 import { Message } from "./classMessage";
-import { checkJwt } from "./../helpers/checkJwt";
+import { checkJwt } from "../helpers/checkJwt";
 import Emote from "../models/Emote";
 
 export const socketController = async (socket: any) => {

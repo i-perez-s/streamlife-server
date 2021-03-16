@@ -4,7 +4,7 @@ const userRouter = express.Router();
 import User from "../models/User";
 import { authorizedToken } from "../middelwares/auth";
 
-userRouter.get("/users", authorizedToken, async (req = request, res = response) => {
+userRouter.get("/users", async (req = request, res = response) => {
   const users = await User.find();
   if (!users)
     return res.status(500).json({

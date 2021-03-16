@@ -15,13 +15,23 @@ cloudinary.config({
 
 
 
-uploadRouter.post('/uploadUserPhoto', authorizedToken, async(req = response, res = request) => {
+uploadRouter.post('/setUserPhoto', authorizedToken, async(req = response, res = request) => {
     const { file } = req.files
     const { tempFilePath } = file
 
     try {
+        const user = await User.findById(req.user._id.toString())
+
+        if (user.img) {
+            const nameArr = user.img.splice("/")
+            const nameImg = nameArr[nameArr.length - 1]
+            const [ public_id ] = nameImg.split(".")
+            await cloudinary.uploader.destroy(public_id)
+        }
+
         const { secure_url } = await cloudinary.uploader.upload( tempFilePath )
         const userUpdated = await User.findByIdAndUpdate(getId(req), {photo: secure_url})
+
         return res.json({
             ok: true,
             userUpdated

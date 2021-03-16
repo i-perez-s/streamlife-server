@@ -4,7 +4,7 @@ import NodeMediaServer from "node-media-server";
 import dotenv from "dotenv";
 import { app as routes } from "../routes/index";
 import fileUpload from "express-fileupload";
-import { socketController } from "./../socket/controller";
+import { socketController } from "../sockets/controller";
 
 const setUpServer = () => {
   // Create a new express application instance

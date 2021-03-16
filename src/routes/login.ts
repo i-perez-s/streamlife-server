@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 import { checkJwt } from "./../helpers/checkJwt";
 
-authRouter.post("/login", async (req = request, res = response) => {
-  const password = req.body.password;
-  const email = req.body.email;
+authRouter.get("/login/:email/:password", async (req = request, res = response) => {
+  const email = req.params.email;
+  const password = req.params.password;
 
   const user = await User.findOne({ email: email });
   if (!user) return res.json({ ok: false, err: "user doesn't exists" });
