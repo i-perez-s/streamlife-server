@@ -5,13 +5,14 @@ import dotenv from "dotenv";
 import { app as routes } from "../routes/index";
 import fileUpload from "express-fileupload";
 import { socketController } from "../sockets/controller";
+import cors from "cors";
 
 const setUpServer = () => {
   // Create a new express application instance
   const app: express.Application = express();
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
-
+  app.use(cors());
   //file upload
   app.use(
     fileUpload({
@@ -20,6 +21,7 @@ const setUpServer = () => {
       createParentPath: true,
     })
   );
+
   //use routes
   app.use(routes);
 

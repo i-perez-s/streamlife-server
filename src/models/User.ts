@@ -24,15 +24,11 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-UserSchema.methods.comparePassword = async (password: string) => {
-  const user = this;
-  var userPasword: string;
-  if (!user.password) {
-    userPasword = ":)";
-  } else {
-    userPasword = user.password;
-  }
-  return await bcrypt.compare(password, userPasword);
+UserSchema.methods.comparePassword = async (
+  password: string,
+  userPassword: string
+) => {
+  return await bcrypt.compare(password, userPassword);
 };
 
 UserSchema.methods.toJSON = function () {
