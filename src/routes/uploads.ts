@@ -14,14 +14,14 @@ cloudinary.config({
 });
 
 uploadRouter.post(
-  "/setUserPhoto",
-  authorizedToken,
+  "/setUserPhoto/:uid",
   async (req = response, res = request) => {
     const { file } = req.files;
+    const { uid } = req.params;
     const { tempFilePath } = file;
 
     try {
-      const user = await User.findById(req.user._id.toString());
+      const user = await User.findById(id.toString());
 
       if (user.img) {
         const nameArr = user.img.splice("/");
