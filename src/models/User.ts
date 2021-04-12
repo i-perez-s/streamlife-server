@@ -15,7 +15,11 @@ const UserSchema = new Schema({
   },
   password: { type: String, required: true },
   isInLive: { type: Boolean, required: false, default: false },
-  photo: { type: String, required: false },
+  photo: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 UserSchema.pre("save", async function (next) {
