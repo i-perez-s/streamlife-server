@@ -14,22 +14,23 @@ cloudinary.config({
 });
 
 uploadRouter.post(
-  "/setUserPhoto/:uid",
+  "/setUserPhoto",
+  authorizedToken,
   async (req = response, res = request) => {
     const { file } = req.files;
     let tempFilePath = "";
-
+    console.log(req.user);
     if (!file) {
       tempFilePath =
         "http://1.gravatar.com/avatar/47db31bd2e0b161008607d84c74305b5?s=96&d=mm&r=g";
     } else {
       tempFilePath = file.tempFilePath;
     }
-    const { uid } = req.params;
+    const { _id: uid } = req.user;
+    console.log(uid);
 
     try {
-      const user = await User.findById(uid.toString());
-      console.log(uid);
+      const user = await User.findById(uid);
 
       if (user.photo !== "") {
         console.log(user.photo);
@@ -41,10 +42,15 @@ uploadRouter.post(
 
       const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
       console.log(secure_url);
-      const userUpdated = await User.findByIdAndUpdate(uid, {
-        photo: secure_url,
-      });
+      const userUpdated = await User.findByIdAndUpdate(
+        uid,
+        {
+          photo: secure_url,
+        },
+        { new: true }
+      );
 
+      console.log(userUpdated);
       return res.json({
         ok: true,
         userUpdated,
@@ -58,28 +64,28 @@ uploadRouter.post(
   }
 );
 
-uploadRouter.post("/createEmote", authorizedToken, async (req, res) => {
-  const { file } = req.files;
-  const { tempFilePath } = file;
-  try {
-    const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
-    const emote = new Emote({
-      idStreamerCreator: getId(req),
-      urlEmote: secure_url,
-    });
-    console.log(emote);
-    await emote.save();
-    console.log("sabed");
-    return res.json({
-      ok: true,
-      emote,
-    });
-  } catch (error) {
-    return res.json({
-      ok: false,
-      error,
-    });
-  }
-});
+// uploadRouter.post("/createEmote", authorizedToken, async (req, res) => {
+//   const { file } = req.files;
+//   const { tempFilePath } = file;
+//   try {
+//     const { secure_url } = await cloudinary.uploader.upload(tempFilePath);
+//     const emote = new Emote({
+//       idStreamerCreator: req.user._id,
+//       urlEmote: secure_url,
+//     });
+//     console.log(emote);
+//     await emote.save();
+//     console.log("sabed");
+//     return res.json({
+//       ok: true,
+//       emote,
+//     });
+//   } catch (error) {
+//     return res.json({
+//       ok: false,
+//       error,
+//     });
+//   }
+// });
 
 export default uploadRouter;
