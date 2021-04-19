@@ -3,6 +3,13 @@ const express = require("express");
 const userRouter = express.Router();
 import User from "../models/User";
 import { authorizedToken } from "../middelwares/auth";
+const cloudinary = require("cloudinary").v2;
+//cloudinary.config(process.env.CLOUDINARY_URL);
+cloudinary.config({
+  cloud_name: "zehcnas",
+  api_key: "968626554162891",
+  api_secret: "zTzYSc08B1mGrqIh6Qs_KL1-lrs",
+});
 
 userRouter.get("/users", async (req = request, res = response) => {
   const users = await User.find();
@@ -31,16 +38,19 @@ userRouter.delete(
   authorizedToken,
   async (req = request, res = response) => {
     const id = req.user._id;
-    User.findByIdAndDelete(id)
-      .exec()
-      .then((user: User) => {
-        if (!user)
-          return res
-            .status(404)
-            .json({ ok: false, err: "The user doesn't exists" });
-        res.json({ ok: true, user });
-      })
-      .catch((err: any) => res.status(500).json({ ok: false, err }));
+    try {
+      const user = await User.findByIdAndDelete(id);
+      if (!user) {
+        return res.json({ ok: false, err: "The user doesn't exists" });
+      }
+
+      const nameArr = user.photo.split("/");
+      const nameImg = nameArr[nameArr.length - 1];
+      const [public_id] = nameImg.split(".");
+      await cloudinary.uploader.destroy(public_id);
+    } catch (error) {
+      res.catch((err: any) => res.status(500).json({ ok: false, err }));
+    }
   }
 );
 

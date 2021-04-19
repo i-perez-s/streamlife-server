@@ -19,7 +19,6 @@ uploadRouter.post(
   async (req = response, res = request) => {
     const { file } = req.files;
     let tempFilePath = "";
-    console.log(req.user);
     if (!file) {
       tempFilePath =
         "http://1.gravatar.com/avatar/47db31bd2e0b161008607d84c74305b5?s=96&d=mm&r=g";
