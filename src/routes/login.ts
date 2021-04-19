@@ -7,7 +7,6 @@ import { authorizedToken } from "./../middelwares/auth";
 
 authRouter.post("/login", async (req = request, res = response) => {
   const { email, password } = req.body;
-  console.log("login");
   const user = await User.findOne({ email: email });
   // console.log(await bcrypt.compare(password, user.password));
 
