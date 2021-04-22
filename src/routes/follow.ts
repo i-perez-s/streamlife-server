@@ -1,4 +1,4 @@
-const { response, request } = require('express');
+ const { response, request } = require('express');
 const express = require("express");
 const followRouter = express.Router();
 import User from "../models/User";
@@ -21,10 +21,18 @@ followRouter.post(
       followed: followedId,
     });
     if (existsFollow == null) {
-      follow
-        .save()
-        .then((follow) => res.json({ ok: true, follow }))
-        .catch((err) => res.json({ ok: false, err }));
+      const myFollow = await follow.save()
+      // const followPopulated =  myFollow.populate("follower", "user, email")
+      Follow.findById(myFollow._id)
+      .populate("followed", "_id username isInLive")
+      .populate("follower", "_id username isInLive")
+      .then((follow: typeof Follow) => {
+        if (!follow)
+          return res
+            .status(404)
+            .json({ ok: false, err: "follow doesn't exists" });
+        return res.json({ ok: true, follow: follow });
+      })
     } else {
       return res.json({ ok: false, err: "you're still following this user'" });
     }
@@ -40,7 +48,8 @@ followRouter.delete(
       follower: req.user._id,
     })
       .populate("followed", "_id username isInLive")
-      .then((follow: Follow) => {
+      .populate("follower", "_id username isInLive")
+      .then((follow: typeof Follow) => {
         if (!follow)
           return res
             .status(404)
