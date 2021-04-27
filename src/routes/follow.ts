@@ -24,8 +24,8 @@ followRouter.post(
       const myFollow = await follow.save()
       // const followPopulated =  myFollow.populate("follower", "user, email")
       Follow.findById(myFollow._id)
-      .populate("followed", "_id username isInLive")
-      .populate("follower", "_id username isInLive")
+      .populate("followed", "_id username isInLive photo")
+      .populate("follower", "_id username isInLive photo")
       .then((follow: typeof Follow) => {
         if (!follow)
           return res
@@ -47,8 +47,8 @@ followRouter.delete(
       followed: req.params.idFollowed,
       follower: req.user._id,
     })
-      .populate("followed", "_id username isInLive")
-      .populate("follower", "_id username isInLive")
+      .populate("followed", "_id username isInLive photo")
+      .populate("follower", "_id username isInLive photo")
       .then((follow: typeof Follow) => {
         if (!follow)
           return res
@@ -62,7 +62,7 @@ followRouter.delete(
 
 followRouter.get("/myFollows", authorizedToken, async (req = request, res = response) => {
   Follow.find({ follower: req.user._id })
-    .populate("followed", "_id username isInLive")
+    .populate("followed", "_id username isInLive photo")
     .then((myFollows) => res.json({ ok: true, follows: myFollows }))
     .catch((err) => res.json({ ok: false, err }));
 });
