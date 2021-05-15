@@ -47,7 +47,6 @@ const setUpServer = () => {
   const io = require("socket.io")(ioServer, {
     cors: { origins: "http://localhost:3000" },
   });
-
   io.on("connection", (socket: any) => socketController(socket, io));
 
   try {
